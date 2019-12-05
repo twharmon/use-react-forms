@@ -2,8 +2,8 @@ import { useState, useEffect, useCallback } from 'react'
 
 interface Handlers<ElementType> {
     onChange: (e: React.ChangeEvent<ElementType>) => void
-    onBlur: (e: React.FocusEvent<ElementType>) => void
-    onFocus: (e: React.FocusEvent<ElementType>) => void
+    onBlur: () => void
+    onFocus: () => void
 }
 
 type Trigger = 'change' | 'blur' | 'blurchange'
