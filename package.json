@@ -1,6 +1,6 @@
 {
   "name": "use-react-forms",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Hooks to help make forms",
   "main": "dist/index.js",
   "scripts": {
