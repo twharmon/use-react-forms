@@ -1,6 +1,6 @@
 {
-  "name": "formhooks",
-  "version": "1.0.0",
+  "name": "use-react-forms",
+  "version": "1.0.1",
   "description": "Hooks to help make forms",
   "main": "dist/index.js",
   "scripts": {
@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/twharmon/formhooks.git"
+    "url": "git+https://github.com/twharmon/use-react-forms.git"
   },
   "keywords": [
     "react",
