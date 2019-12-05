@@ -1,0 +1,30 @@
+{
+  "name": "formhooks",
+  "version": "1.0.0",
+  "description": "Hooks to help make forms",
+  "main": "dist/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/twharmon/formhooks.git"
+  },
+  "keywords": [
+    "react",
+    "form",
+    "hooks",
+    "hook"
+  ],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/twharmon/formhooks/issues"
+  },
+  "homepage": "https://github.com/twharmon/formhooks#readme",
+  "dependencies": {
+    "@types/react": "^16.9.15",
+    "moment": "^2.24.0",
+    "react": "^16.12.0"
+  }
+}
