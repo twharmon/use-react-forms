@@ -19,7 +19,11 @@ export default class NumberValidator {
     }
 
     max(max: number, message = `Must be no more than ${max}`): this {
-        this.rules = [(v: number | undefined) => v && v <= max ? '' : message].concat(this.rules)
+        this.rules = [(v: number | undefined) => {
+            if (!v) return ''
+            if (v <= max) return ''
+            return message
+        }].concat(this.rules)
         return this
     }
 

@@ -18,7 +18,11 @@ export default class StringValidator {
     }
 
     max(max: number, message = `Must be no more than ${max} characters`): this {
-        this.rules = [(v: string | undefined) => v && v.length <= max ? '' : message].concat(this.rules)
+        this.rules = [(v: string | undefined) => {
+            if (!v) return ''
+            if (v.length <= max) return ''
+            return message
+        }].concat(this.rules)
         return this
     }
 
