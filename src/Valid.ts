@@ -1,5 +1,6 @@
 import StringValidator from './StringValidator'
 import NumberValidator from './NumberValidator'
+import BooleanValidator from './BooleanValidator'
 import MomentValidator from './MomentValidator'
 
 export type ValidatorFunc<T> = (value: T) => string
@@ -18,6 +19,10 @@ export class Valid  {
 
     static number() {
         return new NumberValidator()
+    }
+
+    static boolean() {
+        return new BooleanValidator()
     }
 
     static moment() {
