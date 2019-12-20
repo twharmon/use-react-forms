@@ -16,11 +16,10 @@ export interface UseFieldArgs<ValueType> {
 
 export interface Field<ValueType, ElementType> {
     value?: ValueType
-    // setValue: (value: ValueType) => void
     violation: string
     handlers: Handlers<ElementType>
-    validate: () => void
     isValid: boolean
+    validate: () => void
 }
 
 interface Validator<T> {
@@ -29,7 +28,7 @@ interface Validator<T> {
 
 type EventToValueFunc<E, V> = (e: React.ChangeEvent<E>) => V
 
-export default function useField<ValueType, ElementType>(args: UseFieldArgs<ValueType>, event2Value: EventToValueFunc<ElementType, ValueType>): [Field<ValueType, ElementType>, React.Dispatch<React.SetStateAction<ValueType | undefined>>] {
+export default function useField<ValueType, ElementType>(args: UseFieldArgs<ValueType>, event2Value: EventToValueFunc<ElementType, ValueType>): [Field<ValueType, ElementType>, React.Dispatch<React.SetStateAction<ValueType | undefined>>, () => void] {
     const [value, setValue] = useState(args.initialValue)
     const [violation, setViolation] = useState('')
     const [shouldValidate, setShouldValidate] = useState(false)
@@ -72,11 +71,18 @@ export default function useField<ValueType, ElementType>(args: UseFieldArgs<Valu
         setShouldValidate(true)
     }, [])
 
+    const reset = () => {
+        setViolation('')
+        setShouldValidate(false)
+        setIsValid(false)
+        setHasBlured(false)
+    }
+
     return [{
         value,
         violation,
         handlers: { onChange, onBlur, onFocus },
         validate,
         isValid,
-    }, setValue]
+    }, setValue, reset]
 }
