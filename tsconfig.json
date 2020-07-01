@@ -1,15 +1,31 @@
 {
-    "compilerOptions": {
-        "target": "es5",
-        "module": "commonjs",
-        "lib": ["es2017", "es7", "es6", "dom"],
-        "declaration": true,
-        "outDir": "dist",
-        "strict": true,
-        "esModuleInterop": true,
-        "jsx": "react"
-    },
-    "exclude": [
-        "dist"
-    ]
+  "compilerOptions": {
+    "target": "es5",
+    "module": "esnext",
+    "lib": [
+      "es2017",
+      "es7",
+      "es6",
+      "dom"
+    ],
+    "declaration": true,
+    "outDir": "dist",
+    "strict": true,
+    "esModuleInterop": true,
+    "jsx": "react",
+    "allowJs": true,
+    "skipLibCheck": true,
+    "allowSyntheticDefaultImports": true,
+    "forceConsistentCasingInFileNames": true,
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": true
+  },
+  "exclude": [
+    "dist"
+  ],
+  "include": [
+    "src"
+  ]
 }

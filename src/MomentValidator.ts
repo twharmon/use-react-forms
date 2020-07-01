@@ -10,22 +10,33 @@ export default class MomentValidator {
     rules: ValidatorFunc<Moment | undefined>[]
 
     required(message = 'Required'): this {
-        this.rules = [(v: Moment | undefined) => v && v.isValid() ? '' : message].concat(this.rules)
+        const rule = (v: Moment | undefined) => v && v.isValid() ? '' : message
+        this.rules.unshift(rule)
         return this
     }
 
     min(min: Moment, message = `Must not be before ${min.format('MM/DD/YYYY')}`): this {
-        this.rules = [(v: Moment | undefined) => v && !v.isBefore(min) ? '' : message].concat(this.rules)
+        const rule = (v: Moment | undefined) => {
+            if (!v) return ''
+            if (!v.isBefore(min)) return ''
+            return message
+        }
+        this.rules.unshift(rule)
         return this
     }
 
     max(max: Moment, message = `Must not be after ${max.format('MM/DD/YYYY')}`): this {
-        this.rules = [(v: Moment | undefined) => v && !v.isAfter(max) ? '' : message].concat(this.rules)
+        const rule = (v: Moment | undefined) => {
+            if (!v) return ''
+            if (!v.isAfter(max)) return ''
+            return message
+        }
+        this.rules.unshift(rule)
         return this
     }
 
     custom(validator: ValidatorFunc<Moment | undefined>): this {
-        this.rules = [validator].concat(this.rules)
+        this.rules.unshift(validator)
         return this
     }
 

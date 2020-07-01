@@ -8,36 +8,53 @@ export default class StringValidator {
     rules: ValidatorFunc<string | undefined>[]
 
     required(message = 'Required'): this {
-        this.rules = [(v: string | undefined) => v ? '' : message].concat(this.rules)
+        const rule = (v: string | undefined) => v ? '' : message
+        this.rules.unshift(rule)
         return this
     }
 
-    min(min: number, message = `Must be at least ${min} characters`): this {
-        this.rules = [(v: string | undefined) => v && v.length >= min ? '' : message].concat(this.rules)
+    min(min: number, message = `Must be at least ${min} character${min !== 1 ? 's' : ''}`): this {
+        const rule = (v: string | undefined) => {
+            if (v === undefined) return ''
+            if (v.length >= min) return ''
+            return message
+        }
+        this.rules.unshift(rule)
         return this
     }
 
-    max(max: number, message = `Must be no more than ${max} characters`): this {
-        this.rules = [(v: string | undefined) => {
+    max(max: number, message = `Must be no more than ${max} character${max !== 1 ? 's' : ''}`): this {
+        const rule = (v: string | undefined) => {
             if (!v) return ''
             if (v.length <= max) return ''
             return message
-        }].concat(this.rules)
+        }
+        this.rules.unshift(rule)
         return this
     }
 
     pattern(pattern: RegExp, message = 'Invalid format'): this {
-        this.rules = [(v: string | undefined) => v && pattern.test(v) ? '' : message].concat(this.rules)
+        const rule = (v: string | undefined) => {
+            if (!v) return ''
+            if (pattern.test(v)) return ''
+            return message
+        }
+        this.rules.unshift(rule)
         return this
     }
 
     in(choices: string[], message = `Must be ${formatChoices(choices)}`): this {
-        this.rules = [(v: string | undefined) => v && choices.includes(v) ? '' : message].concat(this.rules)
+        const rule = (v: string | undefined) => {
+            if (!v) return ''
+            if (choices.includes(v)) return ''
+            return message
+        }
+        this.rules.unshift(rule)
         return this
     }
 
     custom(validator: ValidatorFunc<string | undefined>): this {
-        this.rules = [validator].concat(this.rules)
+        this.rules.unshift(validator)
         return this
     }
 
