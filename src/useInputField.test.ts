@@ -15,8 +15,8 @@ describe('initial values', () => {
             validator: Valid.string(),
         }))
 
-        const [field, setValue] = result.current
-        
+        const field = result.current
+
         expect(field.value).toBe(undefined)
     })
 
@@ -27,8 +27,8 @@ describe('initial values', () => {
             validator: Valid.string(),
         }))
 
-        const [field] = result.current
-        
+        const field = result.current
+
         expect(field.value).toBe(initialValue)
     })
 })
@@ -41,11 +41,11 @@ describe('updates', () => {
 
         const newValue = 'foo'
         act(() => {
-            const [field] = result.current
+            const field = result.current
             field.handlers.onChange(makeChangeEvent(newValue))
         })
-        
-        const [field] = result.current
+
+        const field = result.current
         expect(field.value).toBe(newValue)
     })
 })
@@ -58,11 +58,11 @@ describe('trigger: blur', () => {
         }))
 
         act(() => {
-            const [field] = result.current
+            const field = result.current
             field.handlers.onBlur()
         })
-        
-        const [field] = result.current
+
+        const field = result.current
         expect(field.violation).not.toBe('')
     })
 
@@ -73,11 +73,11 @@ describe('trigger: blur', () => {
         }))
 
         act(() => {
-            const [field] = result.current
+            const field = result.current
             field.handlers.onChange(makeChangeEvent('foo'))
         })
-        
-        const [field] = result.current
+
+        const field = result.current
         expect(field.violation).toBe('')
     })
 
@@ -88,13 +88,13 @@ describe('trigger: blur', () => {
         }))
 
         act(() => {
-            const [field] = result.current
+            const field = result.current
             field.handlers.onChange(makeChangeEvent('foo'))
             field.handlers.onBlur()
             field.handlers.onFocus()
         })
-        
-        const [field] = result.current
+
+        const field = result.current
         expect(field.violation).toBe('')
     })
 })
@@ -107,11 +107,11 @@ describe('trigger: change', () => {
         }))
 
         act(() => {
-            const [field] = result.current
+            const field = result.current
             field.handlers.onChange(makeChangeEvent('foo'))
         })
-        
-        const [field] = result.current
+
+        const field = result.current
         expect(field.violation).not.toBe('')
     })
 
@@ -120,8 +120,8 @@ describe('trigger: change', () => {
             validator: Valid.string().required().min(6),
             trigger: 'change',
         }))
-        
-        const [field] = result.current
+
+        const field = result.current
         expect(field.violation).toBe('')
     })
 
@@ -132,13 +132,13 @@ describe('trigger: change', () => {
         }))
 
         act(() => {
-            const [field] = result.current
+            const field = result.current
             field.handlers.onChange(makeChangeEvent('foo'))
             field.handlers.onBlur()
             field.handlers.onFocus()
         })
-        
-        const [field] = result.current
+
+        const field = result.current
         expect(field.violation).toBe('')
     })
 })
@@ -151,12 +151,12 @@ describe('trigger: blurchange', () => {
         }))
 
         act(() => {
-            const [field] = result.current
+            const field = result.current
             field.handlers.onChange(makeChangeEvent('foo'))
             field.handlers.onBlur()
         })
-        
-        const [field] = result.current
+
+        const field = result.current
         expect(field.violation).not.toBe('')
     })
 
@@ -167,13 +167,13 @@ describe('trigger: blurchange', () => {
         }))
 
         act(() => {
-            const [field] = result.current
+            const field = result.current
             field.handlers.onChange(makeChangeEvent('foo'))
             field.handlers.onBlur()
             field.handlers.onFocus()
         })
-        
-        const [field] = result.current
+
+        const field = result.current
         expect(field.violation).not.toBe('')
     })
 
@@ -184,13 +184,13 @@ describe('trigger: blurchange', () => {
         }))
 
         act(() => {
-            const [field] = result.current
+            const field = result.current
             field.handlers.onChange(makeChangeEvent('foo'))
             field.handlers.onBlur()
             field.handlers.onChange(makeChangeEvent('foobar'))
         })
-        
-        const [field] = result.current
+
+        const field = result.current
         expect(field.violation).toBe('')
     })
 })
