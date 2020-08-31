@@ -21,6 +21,7 @@ export interface Field<ValueType, ElementType> {
     validate: () => void
     isValid: boolean
     setValue: React.Dispatch<React.SetStateAction<ValueType | undefined>>
+    reset: () => void
 }
 
 interface Validator<T> {
@@ -72,6 +73,13 @@ export default function useField<ValueType, ElementType>(args: UseFieldArgs<Valu
         setShouldValidate(true)
     }, [])
 
+    const reset = () => {
+        setValue(args.initialValue)
+        setHasBlured(false)
+        setShouldValidate(false)
+        setViolation('')
+    }
+
     return {
         value,
         violation,
@@ -79,5 +87,6 @@ export default function useField<ValueType, ElementType>(args: UseFieldArgs<Valu
         validate,
         isValid,
         setValue,
+        reset,
     }
 }
