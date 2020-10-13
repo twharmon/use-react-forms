@@ -8,23 +8,9 @@ describe('required', () => {
         const violation = validator.violation(moment())
         expect(violation).toBe('')
     })
-
-    it('fails when required given undefined', () => {
-        const validator = new MomentValidator()
-        validator.required()
-        const violation = validator.violation(undefined)
-        expect(violation).toBe('Required')
-    })
 })
 
 describe('min', () => {
-    it('passes when min moment() given undefined', () => {
-        const validator = new MomentValidator()
-        validator.min(moment())
-        const violation = validator.violation(undefined)
-        expect(violation).toBe('')
-    })
-
     it('passes when min moment() given future', () => {
         const validator = new MomentValidator()
         validator.min(moment())
@@ -41,13 +27,6 @@ describe('min', () => {
 })
 
 describe('max', () => {
-    it('passes when max moment() given undefined', () => {
-        const validator = new MomentValidator()
-        validator.max(moment())
-        const violation = validator.violation(undefined)
-        expect(violation).toBe('')
-    })
-
     it('passes when max moment() given past', () => {
         const validator = new MomentValidator()
         validator.max(moment())
@@ -65,17 +44,10 @@ describe('max', () => {
 
 describe('custom', () => {
     const customErrMsg = 'Date 1 not allowed'
-    const customValidator = (m: Moment | undefined) => {
+    const customValidator = (m: Moment) => {
         if (m && m.date() === 1) return customErrMsg
         return ''
     }
-
-    it('passes when custom given undefined', () => {
-        const validator = new MomentValidator()
-        validator.custom(customValidator)
-        const violation = validator.violation(undefined)
-        expect(violation).toBe('')
-    })
 
     it('passes when custom given valid', () => {
         const validator = new MomentValidator()

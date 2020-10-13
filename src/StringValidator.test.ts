@@ -1,13 +1,6 @@
 import StringValidator from './StringValidator'
 
 describe('required', () => {
-    it('fails when given undefined', () => {
-        const validator = new StringValidator()
-        validator.required()
-        const violation = validator.violation(undefined)
-        expect(violation).toBe('Required')
-    })
-
     it('fails when given empty string', () => {
         const validator = new StringValidator()
         validator.required()
@@ -24,20 +17,6 @@ describe('required', () => {
 })
 
 describe('min', () => {
-    it('fails when required & min 0 given undefined', () => {
-        const validator = new StringValidator()
-        validator.required().min(0)
-        const violation = validator.violation(undefined)
-        expect(violation).toBe('Required')
-    })
-
-    it('passes when min 3 given undefined', () => {
-        const validator = new StringValidator()
-        validator.min(3)
-        const violation = validator.violation(undefined)
-        expect(violation).toBe('')
-    })
-
     it('passes when min 0 given empty string', () => {
         const validator = new StringValidator()
         validator.min(0)
@@ -89,13 +68,6 @@ describe('max', () => {
         expect(violation).toContain('no more than')
     })
 
-    it('passes when max 3 given undefined', () => {
-        const validator = new StringValidator()
-        validator.max(3)
-        const violation = validator.violation(undefined)
-        expect(violation).toBe('')
-    })
-
     it('passes when max 3 given length 3', () => {
         const validator = new StringValidator()
         validator.max(3)
@@ -119,13 +91,6 @@ describe('max', () => {
 })
 
 describe('pattern', () => {
-    it('passes when /[a-z]/ given undefined', () => {
-        const validator = new StringValidator()
-        validator.pattern(/[a-z]/)
-        const violation = validator.violation(undefined)
-        expect(violation).toBe('')
-    })
-
     it('passes when /[a-z]/ given foo', () => {
         const validator = new StringValidator()
         validator.pattern(/[a-z]/)
@@ -149,13 +114,6 @@ describe('pattern', () => {
 })
 
 describe('in', () => {
-    it('passes when [foo, bar] given undefined', () => {
-        const validator = new StringValidator()
-        validator.in(['foo', 'bar'])
-        const violation = validator.violation(undefined)
-        expect(violation).toBe('')
-    })
-
     it('passes when [foo, bar] given foo', () => {
         const validator = new StringValidator()
         validator.in(['foo', 'bar'])
@@ -173,17 +131,10 @@ describe('in', () => {
 
 describe('custom', () => {
     const customErrMsg = 'foo not allowed'
-    const customValidator = (s: string | undefined) => {
+    const customValidator = (s: string) => {
         if (s === 'foo') return customErrMsg
         return ''
     }
-
-    it('passes when custom given undefined', () => {
-        const validator = new StringValidator()
-        validator.custom(customValidator)
-        const violation = validator.violation(undefined)
-        expect(violation).toBe('')
-    })
 
     it('passes when custom given valid', () => {
         const validator = new StringValidator()

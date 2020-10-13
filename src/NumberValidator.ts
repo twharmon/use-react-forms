@@ -6,17 +6,16 @@ export default class NumberValidator {
         this.rules = []
     }
 
-    rules: ValidatorFunc<number | undefined>[]
+    rules: ValidatorFunc<number>[]
 
     required(message = 'Required'): this {
-        const rule = (v: number | undefined) => v !== undefined ? '' : message
+        const rule = (v: number) => v !== undefined ? '' : message
         this.rules.unshift(rule)
         return this
     }
 
     min(min: number, message = `Must be at least ${min}`): this {
-        const rule = (v: number | undefined) => {
-            if (v === undefined) return ''
+        const rule = (v: number) => {
             if (v >= min) return ''
             return message
         }
@@ -25,8 +24,7 @@ export default class NumberValidator {
     }
 
     max(max: number, message = `Must be no more than ${max}`): this {
-        const rule = (v: number | undefined) => {
-            if (v === undefined) return ''
+        const rule = (v: number) => {
             if (v <= max) return ''
             return message
         }
@@ -35,8 +33,7 @@ export default class NumberValidator {
     }
 
     in(choices: number[], message = `Must be ${formatChoices(choices)}`): this {
-        const rule = (v: number | undefined) => {
-            if (v === undefined) return ''
+        const rule = (v: number) => {
             if (choices.includes(v)) return ''
             return message
         }
@@ -44,12 +41,12 @@ export default class NumberValidator {
         return this
     }
 
-    custom(validator: ValidatorFunc<number | undefined>): this {
+    custom(validator: ValidatorFunc<number>): this {
         this.rules.unshift(validator)
         return this
     }
 
-    violation(value: number | undefined): string {
+    violation(value: number): string {
         for (let i = this.rules.length - 1; i >= 0; i--) {
             const violation = this.rules[i](value)
             if (violation) {

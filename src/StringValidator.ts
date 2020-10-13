@@ -5,17 +5,16 @@ export default class StringValidator {
         this.rules = []
     }
 
-    rules: ValidatorFunc<string | undefined>[]
+    rules: ValidatorFunc<string>[]
 
     required(message = 'Required'): this {
-        const rule = (v: string | undefined) => v ? '' : message
+        const rule = (v: string) => v ? '' : message
         this.rules.unshift(rule)
         return this
     }
 
     min(min: number, message = `Must be at least ${min} character${min !== 1 ? 's' : ''}`): this {
-        const rule = (v: string | undefined) => {
-            if (v === undefined) return ''
+        const rule = (v: string) => {
             if (v.length >= min) return ''
             return message
         }
@@ -24,7 +23,7 @@ export default class StringValidator {
     }
 
     max(max: number, message = `Must be no more than ${max} character${max !== 1 ? 's' : ''}`): this {
-        const rule = (v: string | undefined) => {
+        const rule = (v: string) => {
             if (!v) return ''
             if (v.length <= max) return ''
             return message
@@ -34,7 +33,7 @@ export default class StringValidator {
     }
 
     pattern(pattern: RegExp, message = 'Invalid format'): this {
-        const rule = (v: string | undefined) => {
+        const rule = (v: string) => {
             if (!v) return ''
             if (pattern.test(v)) return ''
             return message
@@ -44,7 +43,7 @@ export default class StringValidator {
     }
 
     in(choices: string[], message = `Must be ${formatChoices(choices)}`): this {
-        const rule = (v: string | undefined) => {
+        const rule = (v: string) => {
             if (!v) return ''
             if (choices.includes(v)) return ''
             return message
@@ -53,12 +52,12 @@ export default class StringValidator {
         return this
     }
 
-    custom(validator: ValidatorFunc<string | undefined>): this {
+    custom(validator: ValidatorFunc<string>): this {
         this.rules.unshift(validator)
         return this
     }
 
-    violation(value: string | undefined): string {
+    violation(value: string): string {
         for (let i = this.rules.length - 1; i >= 0; i--) {
             const violation = this.rules[i](value)
             if (violation) {

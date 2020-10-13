@@ -10,16 +10,6 @@ const makeChangeEvent = (value: string): React.ChangeEvent<HTMLInputElement> => 
 }
 
 describe('initial values', () => {
-    it('is undefined when not specified', () => {
-        const { result } = renderHook(() => useInputField({
-            validator: Valid.string(),
-        }))
-
-        const field = result.current
-
-        expect(field.value).toBe(undefined)
-    })
-
     it('is as specified when specified', () => {
         const initialValue = 'foo'
         const { result } = renderHook(() => useInputField({
@@ -36,6 +26,7 @@ describe('initial values', () => {
 describe('updates', () => {
     it('updates value on change', () => {
         const { result } = renderHook(() => useInputField({
+            initialValue: '',
             validator: Valid.string(),
         }))
 
@@ -53,6 +44,7 @@ describe('updates', () => {
 describe('trigger: blur', () => {
     it('is not empty when invalid, not changed, and triggered', () => {
         const { result } = renderHook(() => useInputField({
+            initialValue: '',
             validator: Valid.string().required(),
             trigger: 'blur',
         }))
@@ -68,6 +60,7 @@ describe('trigger: blur', () => {
 
     it('is empty when invalid, changed and not triggered', () => {
         const { result } = renderHook(() => useInputField({
+            initialValue: '',
             validator: Valid.string().required().min(6),
             trigger: 'blur',
         }))
@@ -83,6 +76,7 @@ describe('trigger: blur', () => {
 
     it('is empty when invalid, triggered, focused', () => {
         const { result } = renderHook(() => useInputField({
+            initialValue: '',
             validator: Valid.string().required().min(6),
             trigger: 'blur',
         }))
@@ -102,6 +96,7 @@ describe('trigger: blur', () => {
 describe('trigger: change', () => {
     it('is not empty when invalid and triggered', () => {
         const { result } = renderHook(() => useInputField({
+            initialValue: '',
             validator: Valid.string().required().min(6),
             trigger: 'change',
         }))
@@ -117,6 +112,7 @@ describe('trigger: change', () => {
 
     it('is empty when invalid and not triggered', () => {
         const { result } = renderHook(() => useInputField({
+            initialValue: '',
             validator: Valid.string().required().min(6),
             trigger: 'change',
         }))
@@ -127,6 +123,7 @@ describe('trigger: change', () => {
 
     it('is empty when invalid, triggered, focused', () => {
         const { result } = renderHook(() => useInputField({
+            initialValue: '',
             validator: Valid.string().required().min(6),
             trigger: 'blur',
         }))
@@ -146,6 +143,7 @@ describe('trigger: change', () => {
 describe('trigger: blurchange', () => {
     it('is not empty when invalid and triggered', () => {
         const { result } = renderHook(() => useInputField({
+            initialValue: '',
             validator: Valid.string().required().min(6),
             trigger: 'blurchange',
         }))
@@ -162,6 +160,7 @@ describe('trigger: blurchange', () => {
 
     it('is not empty when invalid, triggered, focused', () => {
         const { result } = renderHook(() => useInputField({
+            initialValue: '',
             validator: Valid.string().required().min(6),
             trigger: 'blurchange',
         }))
@@ -179,6 +178,7 @@ describe('trigger: blurchange', () => {
 
     it('is empty when invalid, triggered, changed to valid', () => {
         const { result } = renderHook(() => useInputField({
+            initialValue: '',
             validator: Valid.string().required().min(6),
             trigger: 'blurchange',
         }))
