@@ -12,20 +12,17 @@ export const formatChoices = <T>(choices: T[]): string => {
     return choices.slice(0, choices.length - 1).join(', ') + ` or ${choices[choices.length - 1]}`
 }
 
-export class Valid  {
-    static string() {
+export const Valid = {
+    string() {
         return new StringValidator()
-    }
-
-    static number() {
+    },
+    number() {
         return new NumberValidator()
-    }
-
-    static boolean() {
+    },
+    boolean() {
         return new BooleanValidator()
-    }
-
-    static moment() {
+    },
+    moment() {
         return new MomentValidator()
-    }
+    },
 }
