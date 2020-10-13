@@ -9,23 +9,23 @@ interface Handlers<ElementType> {
 type Trigger = 'change' | 'blur' | 'blurchange'
 
 export interface UseFieldArgs<ValueType> {
-    initialValue?: ValueType
+    initialValue: ValueType
     validator: Validator<ValueType>
     trigger?: Trigger
 }
 
 export interface Field<ValueType, ElementType> {
-    value?: ValueType
+    value: ValueType
     violation: string
     handlers: Handlers<ElementType>
     validate: () => void
     isValid: boolean
-    setValue: React.Dispatch<React.SetStateAction<ValueType | undefined>>
+    setValue: React.Dispatch<React.SetStateAction<ValueType>>
     reset: () => void
 }
 
 interface Validator<T> {
-    violation: (value?: T) => string
+    violation: (value: T) => string
 }
 
 type EventToValueFunc<E, V> = (e: React.ChangeEvent<E>) => V

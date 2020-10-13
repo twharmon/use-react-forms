@@ -1,13 +1,6 @@
 import NumberValidator from './NumberValidator'
 
 describe('required', () => {
-    it('fails when given undefined', () => {
-        const validator = new NumberValidator()
-        validator.required()
-        const violation = validator.violation(undefined)
-        expect(violation).toBe('Required')
-    })
-
     it('passes when given 5', () => {
         const validator = new NumberValidator()
         validator.required()
@@ -17,20 +10,6 @@ describe('required', () => {
 })
 
 describe('min', () => {
-    it('fails when required & min 0 given undefined', () => {
-        const validator = new NumberValidator()
-        validator.required().min(0)
-        const violation = validator.violation(undefined)
-        expect(violation).toBe('Required')
-    })
-
-    it('passes when min 3 given undefined', () => {
-        const validator = new NumberValidator()
-        validator.min(3)
-        const violation = validator.violation(undefined)
-        expect(violation).toBe('')
-    })
-
     it('passes when min 0 given 0', () => {
         const validator = new NumberValidator()
         validator.min(0)
@@ -82,13 +61,6 @@ describe('max', () => {
         expect(violation).toContain('no more than')
     })
 
-    it('passes when max 3 given undefined', () => {
-        const validator = new NumberValidator()
-        validator.max(3)
-        const violation = validator.violation(undefined)
-        expect(violation).toBe('')
-    })
-
     it('passes when max 0 given 0', () => {
         const validator = new NumberValidator()
         validator.max(0)
@@ -119,13 +91,6 @@ describe('max', () => {
 })
 
 describe('in', () => {
-    it('passes when [3, 5] given undefined', () => {
-        const validator = new NumberValidator()
-        validator.in([3, 5])
-        const violation = validator.violation(undefined)
-        expect(violation).toBe('')
-    })
-
     it('passes when [3, 5] given 3', () => {
         const validator = new NumberValidator()
         validator.in([3, 5])
@@ -143,17 +108,10 @@ describe('in', () => {
 
 describe('custom', () => {
     const customErrMsg = '5 not allowed'
-    const customValidator = (n: number | undefined) => {
+    const customValidator = (n: number) => {
         if (n === 5) return customErrMsg
         return ''
     }
-
-    it('passes when custom given undefined', () => {
-        const validator = new NumberValidator()
-        validator.custom(customValidator)
-        const violation = validator.violation(undefined)
-        expect(violation).toBe('')
-    })
 
     it('passes when custom given valid', () => {
         const validator = new NumberValidator()

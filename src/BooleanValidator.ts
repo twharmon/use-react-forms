@@ -6,14 +6,14 @@ export default class BooleanValidator {
         this.rules = []
     }
 
-    rules: ValidatorFunc<boolean | undefined>[]
+    rules: ValidatorFunc<boolean>[]
 
     is(val: boolean, message = `Must be ${val}`): this {
-        this.rules = [(v: boolean | undefined) => v === val ? '' : message].concat(this.rules)
+        this.rules = [(v: boolean) => v === val ? '' : message].concat(this.rules)
         return this
     }
 
-    violation(value: boolean | undefined): string {
+    violation(value: boolean): string {
         for (let i = this.rules.length - 1; i >= 0; i--) {
             const violation = this.rules[i](value)
             if (violation) {
